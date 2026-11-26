@@ -10,6 +10,11 @@ import os
 
 ENTRY = "AUTHORIZED PERSONNEL AND ONE GHOST ONLY. The ghost has root access. You do not."
 
+# The sealed gate accepts UTF-8 text of 1 to 120 characters, not only
+# whitespace. Enforce the same bound here so a bad edit fails loudly
+# instead of shipping an invalid entry.
+assert ENTRY == ENTRY.strip() and 1 <= len(ENTRY) <= 120, "entry violates the gate"
+
 OUTPUT_DIR = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
 
 
